@@ -4,7 +4,7 @@ using Entities.Concretes;
 using System.Collections.Generic;
 namespace Business.Concretes
 {
-    internal class BrandManager : IBrandService
+    public class BrandManager : IBrandService
     {
         private IBrandDal _brandDal;
         public BrandManager(IBrandDal brandDal)
