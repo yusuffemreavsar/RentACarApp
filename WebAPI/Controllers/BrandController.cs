@@ -1,7 +1,6 @@
 ﻿using Business.Abstract;
-using Business.Concretes;
-using DataAccess.Abstract;
-using DataAccess.Concretes.InMemory;
+using Business.Request;
+using Business.Response;
 using Entities.Concretes;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,18 +15,42 @@ namespace WebAPI.Controllers
         {
             _brandService = ServiceRegistration.BrandService;
            
-        }
-        [HttpGet]
-        public ICollection<Brand> GetList()
-        {
-            IList<Brand> brandlist = _brandService.GetList();
-            return brandlist;
+
         }
         [HttpPost]
-        public Brand GetList(Brand addBrand)
+        public AddBrandResponse Add(AddBrandRequest addBrandRequest)
         {
-            Brand brand = _brandService.Add(addBrand);
-            return brand;
+            AddBrandResponse brandResponse = _brandService.Add(addBrandRequest);
+            return brandResponse;
+        }
+        [HttpGet]
+        public ICollection<AddBrandResponse> GetList()
+        {
+            IList<AddBrandResponse> brandlist = _brandService.GetList();
+            return brandlist;
+        }
+
+
+        [HttpGet("{id}")]
+        public AddBrandResponse GetById(int id)
+        {
+            AddBrandResponse brandResponse = _brandService.GetById(id);
+            return brandResponse;
+        }
+        [HttpPut("{id}")]
+        public AddBrandResponse Add(AddBrandRequest addBrandRequest,int id)
+        {
+            AddBrandResponse brandResponse = _brandService.Update(id, addBrandRequest);
+            return brandResponse;
+        }
+
+
+       
+        [HttpDelete("{id}")]
+        public AddBrandResponse Delete(int id)
+        {
+            AddBrandResponse brandResponse = _brandService.Delete(id);
+            return brandResponse;
         }
 
     }

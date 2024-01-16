@@ -3,12 +3,14 @@ using Core.Entities;
 
 namespace Core.DataAccess.InMemory
 {
-    public class InMemoryEntityRepositoryBase<TEntity, TId> : IEntityRepository<TEntity, TId>
+    public abstract class InMemoryEntityRepositoryBase<TEntity, TId> : IEntityRepository<TEntity, TId>
         where TEntity : class,IEntity<TId>,new()
     {
-        private readonly HashSet<TEntity> _entities = new();
+        protected readonly HashSet<TEntity> _entities = new();
+        protected abstract TId generateId(); 
         public void Add(TEntity entity)
         {
+            entity.Id=generateId(); 
             entity.CreatedAt = DateTime.Now;
             _entities.Add(entity);
         }
@@ -26,6 +28,7 @@ namespace Core.DataAccess.InMemory
 
         public IList<TEntity> GetList()
         {
+          
             IList<TEntity> entities = _entities.Where(e => e.DeletedAt.HasValue == false).ToList();
             return entities;
         }

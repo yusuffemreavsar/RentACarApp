@@ -1,10 +1,16 @@
-﻿using Entities.Concretes;
+﻿using Business.Request;
+using Business.Response;
+using Entities.Concretes;
 
 namespace Business.Abstract
 {
     public interface IBrandService
     {
-        public Brand Add(Brand brand);
-        public IList<Brand> GetList();
+        public AddBrandResponse Add(AddBrandRequest brandRequest);
+        public IList<AddBrandResponse> GetList();
+        public AddBrandResponse GetById(int id);
+        public AddBrandResponse Update(int id, AddBrandRequest brandRequest);
+        public AddBrandResponse Delete(int id);
+
     }
 }
